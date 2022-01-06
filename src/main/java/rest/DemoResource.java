@@ -5,11 +5,9 @@ import com.google.gson.GsonBuilder;
 import dtos.UserDTO;
 import entities.Role;
 import entities.User;
-import entities.WatchList;
+
 import facades.UserFacade;
-import utils.AddLikesToDB;
 import utils.EMF_Creator;
-import utils.HttpUtils;
 
 import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManager;
@@ -57,19 +55,11 @@ public class DemoResource {
             em.getTransaction().begin();
             Role userRole = new Role("user");
             Role adminRole = new Role("admin");
-            WatchList watchList = new WatchList("tt4972582"); // Split
-            WatchList watchList1 = new WatchList("tt11126994"); // Arcane
             user.addRole(userRole);
             user1.addRole(userRole);
 //      admin.addRole(adminRole);
-            user.addToWatchList(watchList);
-            user.addToWatchList(watchList1);
-            user1.addToWatchList(watchList);
-            user1.addToWatchList(watchList1);
             em.persist(userRole);
             em.persist(adminRole);
-            em.persist(watchList);
-            em.persist(watchList1);
             em.persist(user);
             em.persist(user1);
 //      em.persist(admin);
@@ -80,25 +70,6 @@ public class DemoResource {
         } finally {
             em.close();
         }
-    }
-
-    @GET
-    @Path("createlikes")
-    public String createlikes(){
-       AddLikesToDB a = new AddLikesToDB();
-
-        a.addlikeToMovie("tt0420233",100);
-        a.addlikeToMovie("tt0376606",90);
-        a.addlikeToMovie("tt2092588",80);
-        a.addlikeToMovie("tt7631146",70);
-        a.addlikeToMovie("tt11012066",60);
-        a.addlikeToMovie("tt0486725",50);
-        a.addlikeToMovie("tt3480822",40);
-        a.addlikeToMovie("tt2085059",30);
-        a.addlikeToMovie("tt4154664",20);
-        a.addlikeToMovie("tt7667038",10);
-
-        return "Dummy likes created";
     }
 
     @GET
@@ -121,8 +92,8 @@ public class DemoResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("admin/users")
-    @RolesAllowed("admin")
+    @Path("users")
+    //@RolesAllowed("user")
     public String getAllUsers() {
         List<UserDTO> userDTOList = facade.getAllUsers();
         return gson.toJson(userDTOList);

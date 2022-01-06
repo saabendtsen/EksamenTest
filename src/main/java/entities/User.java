@@ -38,11 +38,15 @@ public class User implements Serializable {
   @ManyToMany
   private List<Role> roleList = new ArrayList<>();
 
-  @JoinTable(name = "user_watchlist", joinColumns = {
-          @JoinColumn(name = "user_name", referencedColumnName = "user_name")}, inverseJoinColumns = {
-          @JoinColumn(name = "watchlater_imdb_id", referencedColumnName = "watchlater_imdb_id")})
+  private String name;
+
   @ManyToMany
-  private List<WatchList> watchList = new ArrayList<>();
+  private List<Boat> boats;
+
+
+  private String address;
+  private String phone;
+
 
   public List<String> getRolesAsStrings() {
     if (roleList.isEmpty()) {
@@ -53,17 +57,6 @@ public class User implements Serializable {
         rolesAsStrings.add(role.getRoleName());
       });
     return rolesAsStrings;
-  }
-
-  public List<String> getWatchListAsString() {
-    if (watchList.isEmpty()) {
-      return null;
-    }
-    List<String> watchlistString = new ArrayList<>();
-    watchList.forEach((watchListAsString) -> {
-      watchlistString.add(watchListAsString.getWatchLaterImdbId());
-    });
-    return watchlistString;
   }
 
   public User() {}
@@ -113,16 +106,35 @@ public class User implements Serializable {
     roleList.add(userRole);
   }
 
-  public List<WatchList> getWatchList() {
-    return watchList;
+  public String getAddress() {
+    return address;
   }
 
-  public void setWatchList(List<WatchList> watchList) {
-    this.watchList = watchList;
+  public void setAddress(String address) {
+    this.address = address;
   }
 
-  public void addToWatchList(WatchList watched) {
-    watchList.add(watched);
+  public String getPhone() {
+    return phone;
   }
 
+  public void setPhone(String phone) {
+    this.phone = phone;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public List<Boat> getBoats() {
+    return boats;
+  }
+
+  public void setBoats(List<Boat> boats) {
+    this.boats = boats;
+  }
 }
