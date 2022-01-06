@@ -1,5 +1,7 @@
 package entities;
 
+import dtos.HarbourDTO;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -25,6 +27,16 @@ public class Harbour {
         this.name = name;
         this.address = address;
         this.capacity = capacity;
+    }
+
+    public Harbour(HarbourDTO harbourDTO) {
+        if (harbourDTO != null){
+            this.id = id;
+        }
+        this.name = harbourDTO.getName();
+        this.address = harbourDTO.getAddress();
+        this.capacity = harbourDTO.getCapacity();
+        this.boats = harbourDTO.getBoats();
     }
 
     public String getName() {
