@@ -1,9 +1,11 @@
 package facades;
 
+import dtos.HarbourDTO;
 import entities.Harbour;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import utils.EMF_Creator;
 
 import javax.persistence.EntityManager;
@@ -35,14 +37,23 @@ class HarbourFacadeTest {
 
     @BeforeEach
     public void setUp(){
-        EntityManager em = emf.createEntityManager();
-        try{
-            em.getTransaction().begin();
-            harbour = new Harbour("Nybro Havn","Lige nede ved kanten",3)
-        }
 
     }
 
 
+    @Test
+    void createHarbour() {
+        HarbourDTO harbourDTO = new HarbourDTO("Nyhavn","nyhavnvej",3);
+        harbourDTO = instance.createHarbour(harbourDTO);
+        assertTrue(harbourDTO.getId() != null );
+
+    }
+
+    @Test
+    void createBoat(){
+
+
+
+    }
 
 }

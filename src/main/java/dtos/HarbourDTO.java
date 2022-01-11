@@ -27,6 +27,11 @@ public class HarbourDTO {
         this.boats = harbour.getBoats();
     }
 
+    public HarbourDTO(String name, String address, int capacity) {
+        this.name = name;
+        this.address = address;
+        this.capacity = capacity;
+    }
 
     public Long getId() {
         return id;
